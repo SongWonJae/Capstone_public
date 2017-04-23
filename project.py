@@ -44,7 +44,7 @@ def on_message(client, userdata, msg):
 			print('turn on the Light')
 		elif confirm_L == 1 :
 			confirm_L = 0
-			GPIO.output(LED1A, GPIO.LOW_
+			GPIO.output(LED1A, GPIO.LOW)
 			print('Action 2 detected agin')
 			print('turn off the Light')
 	elif value == '2':
