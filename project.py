@@ -8,6 +8,9 @@ Motor1B = 18
 Motor1E = 22
 LED1A = 26
 
+confirm_M = 0;
+confirm_L = 0;
+
 GPIO.setup(Motor1A,GPIO.OUT)
 GPIO.setup(Motor1B,GPIO.OUT)
 GPIO.setup(Motor1E,GPIO.OUT)
