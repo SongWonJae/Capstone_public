@@ -24,7 +24,7 @@ GPIO.setup(LED1A,GPIO.OUT)
 GPIO.setup(LED1B,GPIO.OUT)
 
 Door = GPIO.PWM(Motor2E, 50)
-Door.start(0)
+Door.start(2.5)
 
 def on_connect(client, userdata, flags, rc):
 	print('connected with result code '+str(rc))
@@ -38,50 +38,56 @@ def on_message(client, userdata, msg):
 
 	print(msg.payload)
 	value = str(msg.payload.decode("utf-8"))
-	if value  == '0':
+	if value  == '1':
 		if confirm_L1 == 0:
 			confirm_L1 = 1
 			GPIO.output(LED1A, GPIO.HIGH)
 			print('Action 1 detected')
-			print('turn on the Light\n')			
+			print('turn on the white LED\n')			
 		elif confirm_L1 == 1:
 			confirm_L1 = 0
 			GPIO.output(LED1A, GPIO.LOW)
 			print('Action1 detected again')
-			print('turn off the Light\n')
-	elif value == '1':
+			print('turn off the white LED\n')
+	elif value == '3':
 		if confirm_M1 == 0:
 			confirm_M1 = 1
 			GPIO.output(Motor1A,GPIO.HIGH)
 			GPIO.output(Motor1B,GPIO.LOW)
 			GPIO.output(Motor1E,GPIO.HIGH)
-			print('Action2 detected')
+			print('Action3 detected')
 			print('turn on the Fan\n')
 		elif confirm_M1 == 1:
 			confirm_M1 = 0
 			GPIO.output(Motor1E,GPIO.LOW)
-			print('Action2 detected again')
+			print('Action3 detected again')
 			print('turn off the Fan\n')
-	elif value == '2':
+	elif value == '5':
 		if confirm_M2 == 0:
 			confirm_M2 = 1
-			Door.ChangeDutyCycle(12)
-			print('Action3 detected')
+			Door.ChangeDutyCycle(6.5)
+			print('Action4 detected')
 			print('open the Door')
 		elif confirm_M2 == 1:
 			confirm_M2 = 0
 			Door.ChangeDutyCycle(2.5)
-			print('Action3 detected again')
+			print('Action4 detected again')
 			print('close the Door')
-	elif value == '3':
+	elif value == '4':
+		print('Action5 detected')
+		print('This is no Action')
+		print('Do Nothing')
+	elif value == '2':
 		if confirm_L2 == 0:
 			confirm_L2 = 1
 			GPIO.output(LED1B, GPIO.HIGH)
-			print('Action 4 detected')
+			print('Action 5 detected')
+			print('turn on the yellow LED')
 		elif confirm_L2 == 1:
 			confirm_L2 = 0
 			GPIO.output(LED1B, GPIO.LOW)
-			print('Action 4 detected again')
+			print('Action 5 detected again')
+			print('turn off the yellow LED')
 	else :
 			print('Action detecting failed')
 			print('Please do again')
